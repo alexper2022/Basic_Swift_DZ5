@@ -4,11 +4,11 @@
 //   картошки и сделать так, чтобы в классе пиццерии была одна
 //   переменная, в которую можно было бы класть и пиццу, и
 //   картошку фри.
-protocol foodProtocol{
+protocol FoodProtocol{
     var price: Double { get set }
 }
 
-struct pizza: foodProtocol {
+struct Pizza: FoodProtocol {
     enum PizzaType{
         case pepperoni
         case cheese
@@ -40,7 +40,7 @@ struct pizza: foodProtocol {
     var additives: [Additives]
 }
 
-struct frenchFries: foodProtocol{
+struct FrenchFries: FoodProtocol{
     enum Size{
         case s
         case m
@@ -51,33 +51,33 @@ struct frenchFries: foodProtocol{
 }
 
 class Pizzeria{
-    private var foods: [foodProtocol]
-    init(foods: [foodProtocol]){
+    private var foods: [FoodProtocol]
+    init(foods: [FoodProtocol]){
         self.foods = foods
     }
     
 //2. Добавьте в класс пиццерии функцию, которая будет добавлять
 //   новую позицию в меню.
-    func addFood(foods: foodProtocol){
+    func addFood(foods: FoodProtocol){
         self.foods.append(foods)
     }
     
-    func getAllFood()-> [foodProtocol]{
-        self.foods
+    func getAllFood()-> [FoodProtocol]{
+        foods
     }
 }
 
 
 var myPizzeria = Pizzeria(foods: [])
 
-let pizzaHawaiian = pizza(price: 399.99, type: .hawaiian, isThickDough: true, additives: [.pepperoni, .cheeseCheddar])
-var pizzaPepperoni = pizza(price: 500, type: .hawaiian, isThickDough: false, additives: [.cheeseGouda])
-var pizzaCheese = pizza(price: 250.50, type: .cheese, isThickDough: true, additives: [.tomatoes])
-var pizzaChicagoDeepDish = pizza(price: 400, type: .chicagoDeepDish, isThickDough: false, additives: [.salmon, .tomatoes])
+let pizzaHawaiian = Pizza(price: 399.99, type: .hawaiian, isThickDough: true, additives: [.pepperoni, .cheeseCheddar])
+var pizzaPepperoni = Pizza(price: 500, type: .hawaiian, isThickDough: false, additives: [.cheeseGouda])
+var pizzaCheese = Pizza(price: 250.50, type: .cheese, isThickDough: true, additives: [.tomatoes])
+var pizzaChicagoDeepDish = Pizza(price: 400, type: .chicagoDeepDish, isThickDough: false, additives: [.salmon, .tomatoes])
 
-let frenchFriesL = frenchFries(price: 150, size: .l)
-let frenchFriesM = frenchFries(price: 110.5, size: .m)
-let frenchFriesS = frenchFries(price: 90.9, size: .s)
+let frenchFriesL = FrenchFries(price: 150, size: .l)
+let frenchFriesM = FrenchFries(price: 110.5, size: .m)
+let frenchFriesS = FrenchFries(price: 90.9, size: .s)
 
 myPizzeria.addFood(foods: pizzaHawaiian)
 myPizzeria.addFood(foods: pizzaPepperoni)
@@ -93,7 +93,7 @@ for food in myPizzeria.getAllFood(){
 
 //3. Создайте протокол, в котором будут содержаться функции
 //   открытия и закрытия.
-protocol openClose{
+protocol OpenClose{
     func open()
     func close()
 }
@@ -101,7 +101,7 @@ protocol openClose{
 
 //4. Написать расширение для класса пиццерии, в котором будет
 //   реализован протокол из пункта 3.
-extension Pizzeria: openClose {
+extension Pizzeria: OpenClose {
 
     func open(){
         print("Открыто.")
